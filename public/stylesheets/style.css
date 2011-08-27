@@ -5,7 +5,9 @@ body {
 
 
 
-
+.tabs li a {
+  cursor: pointer;
+}
 
 
 
