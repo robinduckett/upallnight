@@ -44,12 +44,31 @@ div#chat, div#users{
 height: 500px;
 overflow-y: scroll;
 }
-div#chat{
+div#chat, div#message, div#nickname{
 width:70%;
+}
+div#message form, div#nickname form{
+    width:100%;
+}
+div#message form input[type=text], div#nickname form input[type=text] {
+    width:78%;
+}
+div#message form input[type=submit], div#nickname form input[type=submit] {
+    width:20%;
 }
 div#users{
 width:30%;
 }
-
 div#topContainer{
+}
+div#tabs{
+   overflow:hidden;
+    width:70%; 
+}
+div#tabs, div#tabs div{
+    height:20px;
+}
+div#tabs div{
+    line-height:20px;
+    padding:0 5px;
 }

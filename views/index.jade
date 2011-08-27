@@ -20,6 +20,9 @@ div#topContainer
         span or 
             a register 
 div#chatContainer
+    div#tabs
+        - for(message in process)
+            div= message
     div#chat
         - for(message in process)
             p= "<" + message + "> " + message
