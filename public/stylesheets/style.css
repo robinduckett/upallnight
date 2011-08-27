@@ -2,15 +2,19 @@ body {
     width: 940px;
     margin: 0 auto;
 }
-
-
-
+#loginBox form{
+    float:right;
+    margin-top:20px;
+}
+#loginBox .clearfix {
+    margin-bottom:5px;
+}
+#loginBox span {
+    margin-left:10px;
+}
 .tabs li a {
   cursor: pointer;
 }
-
-
-
 
 /*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
