@@ -94,3 +94,7 @@ div#tabs .active{
    height:21px; 
    margin-top:0;
 }
+form#register div, form#register div label {
+    width:100%;
+    display:block;
+}

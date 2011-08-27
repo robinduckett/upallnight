@@ -2,7 +2,7 @@ include header
 
 h1= title
 
-form(action='/register', method='POST')
+form#register(action='/register', method='POST')
   div.errors
     ul
     - each error in errors
