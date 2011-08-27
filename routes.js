@@ -185,3 +185,8 @@ function login_succeed(req, res, user_obj) {
     res.send(301);
   });
 }
+
+function isEmail(address) {
+  var pos = address.lastIndexOf("@");
+  return pos > 0 && (address.lastIndexOf(".") > pos) && (address.length - pos > 4);
+}
