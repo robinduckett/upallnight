@@ -6,6 +6,13 @@ body {
     float:right;
     margin-top:20px;
 }
+#loginBox h2{
+    width:100%;
+    text-align:right;
+}
+#logout{
+    float:right;
+}
 #loginBox .clearfix {
     margin-bottom:5px;
 }
