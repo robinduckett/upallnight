@@ -7,13 +7,21 @@ var express = require('express');
 
 var app = module.exports = express.createServer();
 
+var RedisStore = require('connect-redis')(express);
+
+global.redis_store = new RedisStore();
+
+require('nko')('FDVuw0Qpjelbhb2p');
+
 // Configuration
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.session({secret: 'minecraft is fun', store: global.redis_store}));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });

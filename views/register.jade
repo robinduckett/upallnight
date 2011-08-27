@@ -1,0 +1,49 @@
+h1= title
+
+form(action='/register', method='POST')
+  div.errors
+    ul
+    - each error in errors
+      li= error
+
+  div.username
+    label(for='username') username
+    input(type='text', id='username', name='username')
+    
+  div.password
+    label(for='password') password
+    input(type='password', id='password', name='password')
+    
+  div.password_confirm
+    label(for='password_confirm') password_confirm
+    input(type='password', id='password_confirm', name='password_confirm')
+    
+  div.email
+    label(for='email') email
+    input(type='email', id='email', name='email')
+    
+  div.captcha
+    div(id='recaptcha_widget', style='display: none')
+      div#recaptcha_image
+      div.recaptcha_only_if_incorrect_sol(style='color: red') incorrect please try again
+      label.recaptcha_only_if_image(for='recaptcha_response_field') enter the words above:
+      label.recaptcha_only_if_audio(for='recaptcha_response_field') enter the numbers you hear:
+      input#recaptcha_response_field(type='text', name='recaptcha_response_field')
+      div
+        a(href='javascript:Recaptcha.reload()') get another CAPTCHA
+      div.recaptcha_only_if_image
+        a(href='javascript:Recaptcha.switch_type(\'audio\')') get an audio CAPTCHA
+      div.recaptcha_only_if_audio
+        a(href='javascript:Recaptcha.switch_type(\'image\')') get an image CAPTCHA
+      div
+        a(href='javascript:Recaptcha.showhelp()') help
+      
+    script(type='text/javascript')
+      var RecaptchaOptions = {
+         theme: 'custom',
+         custom_theme_widget: 'recaptcha_widget'
+      };
+    != recaptcha_form
+    
+  div.submit
+    input(type='submit', value='register')
