@@ -12,10 +12,9 @@ body {
 #loginBox span {
     margin-left:10px;
 }
-
-
-
-
+.tabs li a {
+  cursor: pointer;
+}
 
 /*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

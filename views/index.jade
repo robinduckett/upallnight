@@ -37,17 +37,17 @@ script
   }
   
   function add_tab(channel) {
-    var tab = $('<div />');
+    var tab = $('<li><a></a></li>');
     tab.addClass('active');
     tab.addClass(channel);
-    tab.html(channel);
+    $('a', tab).html(channel);
     
     tab.click(function() {
-      switch_channel($(this).text());    
+      switch_channel($('a', this).text());    
     });
     
-    $('#tabs div').removeClass('active');
-    $('#tabs').append(tab);
+    $('.tabs li').removeClass('active');
+    $('.tabs').append(tab);
   }
   
   function switch_channel(channel) {
@@ -63,12 +63,12 @@ script
       $('#chats').append(chan);
     }
     
-    $('#tabs div').removeClass('active');
-    $('#tabs div.' + channel).addClass('active');
+    $('.tabs li').removeClass('active');
+    $('.tabs li.' + channel).addClass('active');
   }
 
 div#chatContainer
-    div#tabs
+    ul.tabs
     div#chats
       div#main.chat
         p Welcome to Ragechat!
