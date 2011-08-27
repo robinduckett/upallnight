@@ -29,7 +29,12 @@ div#topContainer
 div#chatContainer
     div#tabs
         - for(message in process)
-            div= message
+            - if(message == 'title') 
+                div.active
+                 #{message}
+            - else
+                div
+                 #{message}
     div#chat
         - for(message in process)
             p= "<" + message + "> " + message

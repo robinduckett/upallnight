@@ -6,6 +6,8 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   width:960px;
     margin:0 auto;
+
+
 }
 div{
     float:left;
@@ -67,12 +69,17 @@ div#tabs{
    overflow:hidden;
     width:70%; 
 }
-div#tabs, div#tabs div{
-    height:20px;
+div#tabs{
+    height:21px;
 }
 div#tabs div{
     line-height:20px;
     padding:0 5px;
+    background: #074c68;
+    color: white;
+    border-radius:5px 5px 0 0;
+    margin:1px 1px 0 0;
+    height:20px;
 }
 div#myUsername{
     width:100%;
@@ -81,4 +88,9 @@ div#myUsername{
 }
 a#logout{
     float:right;
+}
+div#tabs .active{
+   font-weight:bold;
+   height:21px; 
+   margin-top:0;
 }
