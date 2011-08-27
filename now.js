@@ -42,6 +42,19 @@ module.exports = function(app) {
   var nowjs = require('now');
   var everyone = nowjs.initialize(app);
   
+  everyone.now.send_message = function(channel, text) {
+    var now = this;
+    var chan = nowjs.getGroup(channel);
+    
+    chan.hasClient(now.user.clientId, function(hasClient) {
+      if (hasClient) {
+        chan.now.get_message(new Number(now.user.clientId).toString(36), channel, text);
+      } else {
+        now.now.get_message('Error', 'main', 'You are not in ' + channel);
+      }
+    });
+  };
+  
   nowjs.on('disconnect', function() {
     console.log(this.user);
   });
@@ -68,11 +81,12 @@ module.exports = function(app) {
 };
 
 function anon(nowjs, client) {
-  client.now.join_channel(client.user.clientId.toString(36), 'main');
-  client.now.join_channel(client.user.clientId.toString(36), 'ragechat');
-  client.now.join_channel(client.user.clientId.toString(36), 'haxd');
-  client.now.join_channel(client.user.clientId.toString(36), 'test');
-  
-  var main = nowjs.getGroup('main');
-  main.addUser(client.user.clientId);
+  join_channel(nowjs, client, 'main');
+  join_channel(nowjs, client, 'ragechat');
+}
+
+function join_channel(nowjs, client, channel) {
+  client.now.join_channel(new Number(client.user.clientId).toString(36), channel);
+  var chan = nowjs.getGroup(channel);
+  chan.addUser(client.user.clientId);
 }
