@@ -17,15 +17,15 @@ div#topContainer
         a(href='/create') Own a room
     div#loginBox
       - if (!logged_in)
-        form.notLoggedIn
+        form
             input(type='text',placeholder='Email or nickname',required)   
             input(type='password',placeholder='Password',required)
             input(type='submit',value='Login')
-        span.notLoggedIn or 
+        span or 
             a register
       - else
-        div#myUsername.loggedIn MyUsername
-        a#logout.loggedIn(href='#logout') logout     
+        div#myUsername #{username}
+        a#logout(href='#logout') logout     
 div#chatContainer
     div#tabs
         - for(message in process)

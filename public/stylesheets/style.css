@@ -82,6 +82,3 @@ div#myUsername{
 a#logout{
     float:right;
 }
-.loggedIn{
-    display:none;
-}
