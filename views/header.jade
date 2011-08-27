@@ -1,19 +1,8 @@
-div#topContainer
-    a#logo(href="/") LOGO
-    div#rooms(style='display: none') Top themed rooms:
-        ul
-          li.first
-            a(href='#') pop room
-          li
-            a(href='#') rock room
-          li
-            a(href='#') hip-hop room
-          li
-            a(href='#') jazz room
-          li.last
-            a(href='#') more ▼
-        a(href='/create') Own a room
-    div#loginBox
+div#topContainer.row
+    div.span8.column
+        a(href="/")
+            img(src="/art/logo2.png")
+    div#loginBox.span8.column
       - if (typeof logged_in == 'undefined' || logged_in == false)
         form(action='/login', method='post')
             input(type='text', name='username', placeholder='Email or nickname', required)   
@@ -24,3 +13,16 @@ div#topContainer
       - else
         div#myUsername #{username}
         a#logout(href='/logout') logout     
+div.row#rooms Top themed rooms:
+    ul
+      li.first
+        a(href='#') pop room
+      li
+        a(href='#') rock room
+      li
+        a(href='#') hip-hop room
+      li
+        a(href='#') jazz room
+      li.last
+        a(href='#') more ▼
+    a(href='/create') Own a room
