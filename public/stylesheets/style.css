@@ -6,7 +6,7 @@ body {
 a {
   color: #00B7FF;
 }
-div#logo{
+a#logo{
     width:30%;
     height:150px;
     background-color:#66AAAA;
