@@ -1,16 +1,7 @@
-* {
-    margin:0;
-    padding:0;
-}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   width:960px;
     margin:0 auto;
-
-
-}
-div{
-    float:left;
 }
 a {
   color: #00B7FF;
@@ -19,9 +10,11 @@ div#logo{
     width:30%;
     height:150px;
     background-color:#66AAAA;
+    float:left;
 }
 div#rooms{
     width:30%;
+    float:left;
 }
 ol, ul {
     list-style: none;
@@ -42,6 +35,9 @@ div#chatContainer{
    float:none;
     margin:0 auto;
     width:90%; 
+}
+div#chat{
+float:left;
 }
 div#chat, div#users{
 height: 500px;
@@ -64,6 +60,7 @@ width:30%;
 }
 div#topContainer{
     width:100%;
+    float:left;
 }
 div#tabs{
    overflow:hidden;
@@ -93,8 +90,4 @@ div#tabs .active{
    font-weight:bold;
    height:21px; 
    margin-top:0;
-}
-form#register div, form#register div label {
-    width:100%;
-    display:block;
 }
