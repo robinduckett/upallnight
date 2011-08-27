@@ -18,6 +18,9 @@ body {
 label.recaptcha {
   margin-right: 19px;
 }
+#recaptcha_response_field{
+    left:0;
+}
 
 /*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
