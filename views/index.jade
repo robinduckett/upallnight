@@ -8,7 +8,7 @@ script
   
 script
   now.join_channel = function(nickname, channel) {
-    if (now.core.clientId.toString(36) == nickname) {
+    if (new Number(now.core.clientId).toString(36) == nickname) {
       var message = $('<p></p>').html('You joined ' + channel);
       join_channel(channel);
     } else {
@@ -18,18 +18,25 @@ script
     $('#' + channel).prepend(message);
   };
   
-  now.got_message = function(nickname, channel, text) {
-    if (now.core.clientId.toString(36) == nickname) {
-      var message = $('<p></p>').html(channel);
-      join_channel(channel);
+  now.get_message = function(nickname, channel, text) {
+    if (new Number(now.core.clientId).toString(36) == nickname) {
+      var message = $('<p></p>').html('&lt;you&gt; ' + text);
     } else {
-      var message = $('<p></p>').html(nickname + ' joined ' + channel);
+      var message = $('<p></p>').html('&lt;' + nickname + '&gt; ' + text);
     }
+    
+    $('#' + channel).prepend(message);
   };
 
   now.ready(function() {
     
   });
+  
+  function send_message() {
+    now.send_message(active_channel, $('#msg').val());
+    $('#msg').val('');
+    return false;
+  }
   
   function join_channel(channel) {
     add_tab(channel);
@@ -74,9 +81,8 @@ div#chatContainer
         p Welcome to Ragechat!
     div#users
     div#message
-        form
-            input(type='text',placeholder='Type a message',required)   
-            input(type='submit',value='Send')
+      input(type='text', id='msg', placeholder='Type a message',required)   
+      input(type='button', value='Send', onclick='send_message()')
     div#nickname
         form
             input(type='text',placeholder='Choose a nickname',required)   
