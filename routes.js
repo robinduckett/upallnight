@@ -102,8 +102,8 @@ module.exports = function(app) {
       return;
     }
     
-    if (!username || username.length < 5) {
-      render_register(res, req, ['please enter a valid username'])
+    if (!username || username.length < 3) {
+      render_register(res, req, ['please enter a valid username (longer than 3 chars)'])
       return;
     }
     
