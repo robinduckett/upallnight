@@ -35,7 +35,21 @@ div#loginBox form{
 div#loginBox form * {
     width:100%;
 }
-div#chat{
+div#chatContainer{
+   float:none;
+    margin:0 auto;
+    width:90%; 
 }
+div#chat, div#users{
+height: 500px;
+overflow-y: scroll;
+}
+div#chat{
+width:70%;
+}
+div#users{
+width:30%;
+}
+
 div#topContainer{
 }

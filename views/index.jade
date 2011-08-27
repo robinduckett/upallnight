@@ -22,7 +22,15 @@ div#topContainer
 div#chatContainer
     div#chat
         - for(message in process)
-            p= message
+            p= "<" + message + "> " + message
     div#users
+        - for(message in process)
+            p= message
     div#message
+        form
+            input(type='text',placeholder='Type a message',required)   
+            input(type='submit',value='Send')
     div#nickname    
+        form
+            input(type='text',placeholder='Choose a nickname',required)   
+            input(type='submit',value='Set nickname')
