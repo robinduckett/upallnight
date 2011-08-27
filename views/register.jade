@@ -2,29 +2,34 @@ include header
 
 h1= title
 
-form(action='/register', method='POST')
+form#register(action='/register', method='POST')
   div.errors
     ul
     - each error in errors
       li= error
 
-  div.username
+  div.username.clearfix
     label(for='username') username
-    input(type='text', id='username', name='username')
+    div.input
+        input(type='text', id='username', name='username')
     
-  div.password
+  div.password.clearfix
     label(for='password') password
-    input(type='password', id='password', name='password')
+    div.input
+        input(type='password', id='password', name='password')
     
-  div.password_confirm
+  div.password_confirm.clearfix
     label(for='password_confirm') password_confirm
-    input(type='password', id='password_confirm', name='password_confirm')
+    div.input
+        input(type='password', id='password_confirm', name='password_confirm')
     
-  div.email
+  div.email.clearfix
     label(for='email') email
-    input(type='email', id='email', name='email')
+    div.input
+        input(type='email', id='email', name='email')
     
-  div.captcha
+  div.captcha.clearfix
+
     div(id='recaptcha_widget', style='display: none')
       div#recaptcha_image
       div.recaptcha_only_if_incorrect_sol(style='color: red') incorrect please try again
