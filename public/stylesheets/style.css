@@ -2,9 +2,16 @@ body {
     width: 940px;
     margin: 0 auto;
 }
-
-
-
+#loginBox form{
+    float:right;
+    margin-top:20px;
+}
+#loginBox .clearfix {
+    margin-bottom:5px;
+}
+#loginBox span {
+    margin-left:10px;
+}
 
 
 
