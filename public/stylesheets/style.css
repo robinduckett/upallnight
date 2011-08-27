@@ -15,6 +15,9 @@ body {
 .tabs li a {
   cursor: pointer;
 }
+label.recaptcha {
+  margin-right: 19px;
+}
 
 /*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

@@ -86,7 +86,7 @@ function anon(nowjs, client) {
 }
 
 function join_channel(nowjs, client, channel) {
-  client.now.join_channel(new Number(client.user.clientId).toString(36), channel);
   var chan = nowjs.getGroup(channel);
   chan.addUser(client.user.clientId);
+  client.now.join_channel(new Number(client.user.clientId).toString(36), channel);
 }

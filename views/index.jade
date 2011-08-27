@@ -81,9 +81,8 @@ div#chatContainer
         p Welcome to Ragechat!
     div#users
     div#message
-      input(type='text', id='msg', placeholder='Type a message',required)   
-      input(type='button', value='Send', onclick='send_message()')
+      input(type='text', id='msg', placeholder='Type a message', required)   
+      input.btn.small(type='button', value='Send', onclick='send_message()')
     div#nickname
-        form
-            input(type='text',placeholder='Choose a nickname',required)   
-            input(type='submit',value='Set nickname')
+      input(type='text', placeholder='Choose a nickname', required)   
+      input.btn.small.primary(type='submit', value='Set nickname')

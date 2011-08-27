@@ -9,27 +9,28 @@ form#register(action='/register', method='POST')
       li= error
 
   div.username.clearfix
-    label(for='username') username
+    label(for='username') Username
     div.input
         input(type='text', id='username', name='username')
+        
+  div.email.clearfix
+      label(for='email') Email
+      div.input
+          input(type='text', id='email', name='email')
     
   div.password.clearfix
-    label(for='password') password
+    label(for='password') Password
     div.input
         input(type='password', id='password', name='password')
     
   div.password_confirm.clearfix
-    label(for='password_confirm') password_confirm
+    label(for='password_confirm') Confirm Password
     div.input
         input(type='password', id='password_confirm', name='password_confirm')
     
-  div.email.clearfix
-    label(for='email') email
-    div.input
-        input(type='email', id='email', name='email')
-    
   div.captcha.clearfix
+    label.recaptcha Proove you're human
     != recaptcha_form
     
   div.submit
-    input(type='submit', value='register')
+    input.btn.primary(type='submit', value='Register')
