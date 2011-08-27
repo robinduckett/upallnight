@@ -9,5 +9,6 @@
     , "recaptcha": "1.1.0"
     , "connect-redis": "1.0.7"
     , "async": "0.1.9"
+    , "nko": "0.1.1"
   }
 }

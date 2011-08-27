@@ -1,0 +1,13 @@
+h1= title
+
+form(action='/login', method='POST')
+  div.username
+    label(for='username') username
+    input(type='text', id='username', name='username')
+    
+  div.password
+    label(for='password') password
+    input(type='password', id='password', name='password')
+    
+  div.submit
+    input(type='submit', value='login')
