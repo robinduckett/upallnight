@@ -48,7 +48,7 @@ module.exports = function(app) {
     
     chan.hasClient(now.user.clientId, function(hasClient) {
       if (hasClient) {
-        chan.now.get_message(new Number(now.user.clientId).toString(36), channel, text);
+        chan.now.get_message(new Number(now.now.client_id).toString(36), channel, text);
       } else {
         now.now.get_message('Error', 'main', 'You are not in ' + channel);
       }
@@ -56,37 +56,27 @@ module.exports = function(app) {
   };
   
   nowjs.on('disconnect', function() {
-    console.log(this.user);
+    console.log(this.now.client_id + ' disconnected');
   });
   
   nowjs.on('connect', function() {
-    var now = this;
+    if (!this.now.client_id) {
+      this.now.client_id = this.user.clientId;
+    }
     
-    load_session(now.user.cookie['connect.sid'], function(err, session) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (session) {
-          if (session.logged_in) {
-            console.log(session);
-          } else {
-            anon(nowjs, now);
-          }
-        } else {
-          anon(nowjs, now);
-        }
-      }
-    });
+    this.now.client_id + 'connected'
   });
 };
 
 function anon(nowjs, client) {
-  join_channel(nowjs, client, 'main');
-  join_channel(nowjs, client, 'ragechat');
+  if (client.now.channels.indexOf('main') == -1) {
+    join_channel(nowjs, client, 'main');
+    join_channel(nowjs, client, 'ragechat');
+  }
 }
 
 function join_channel(nowjs, client, channel) {
   var chan = nowjs.getGroup(channel);
   chan.addUser(client.user.clientId);
-  client.now.join_channel(new Number(client.user.clientId).toString(36), channel);
+  client.now.join_channel(new Number(client.now.client_id).toString(36), channel);
 }
