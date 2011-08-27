@@ -170,7 +170,9 @@ function render_register(res, req, errors) {
   var render_data = {
     title: 'Ragechat Register',
     errors: errors,
-    recaptcha_form: recaptcha.toHTML()
+    recaptcha_form: recaptcha.toHTML(),
+    logged_in: req.session.logged_in || false,
+    username: req.session.user ? req.session.user.username : 'guest'
   };
     
   res.render('register', render_data);
