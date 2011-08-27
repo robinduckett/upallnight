@@ -19,7 +19,9 @@ div#topContainer
             input(type='password',placeholder='Password',required)
             input(type='submit',value='Login')
         span.notLoggedIn or 
-            a register 
+            a register
+        div#myUsername.loggedIn MyUsername
+        a#logout.loggedIn(href='#logout') logout     
 div#chatContainer
     div#tabs
         - for(message in process)

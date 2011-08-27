@@ -74,6 +74,14 @@ div#tabs div{
     line-height:20px;
     padding:0 5px;
 }
-.notLoggedIn{
+div#myUsername{
+    width:100%;
+    text-align:right;
+    font-size:larger;
+}
+a#logout{
+    float:right;
+}
+.loggedIn{
     display:none;
 }
