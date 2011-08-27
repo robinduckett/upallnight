@@ -74,12 +74,12 @@ script
     $('.tabs li.' + channel).addClass('active');
   }
 
-div#chatContainer
+div#chatContainer.row
     ul.tabs
-    div#chats
+    div#chats.span10.columns
       div#main.chat
         p Welcome to Ragechat!
-    div#users
+    div#users.span6.columns
     div#message
       input(type='text', id='msg', placeholder='Type a message', required)   
       input.btn.small(type='button', value='Send', onclick='send_message()')

@@ -21,6 +21,10 @@ label.recaptcha {
 #recaptcha_response_field{
     left:0;
 }
+#chats, #users{
+    height:500px;
+    overflow-y:scroll;
+}
 
 /*body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
