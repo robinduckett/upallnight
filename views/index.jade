@@ -1,20 +1,28 @@
-div#logo LOGO
-div#rooms
-    ul
-      li.first
-        a(href='#') pop room
-      li
-        a(href='#') rock room
-      li
-        a(href='#') hip-hop room
-      li
-        a(href='#') jazz room
-      li.last
-        a(href='#') more ▼
-div#loginBox
+div#topContainer
+    div#logo LOGO
+    div#rooms
+        ul
+          li.first
+            a(href='#') pop room
+          li
+            a(href='#') rock room
+          li
+            a(href='#') hip-hop room
+          li
+            a(href='#') jazz room
+          li.last
+            a(href='#') more ▼
+    div#loginBox
+        form
+            input(type='text',placeholder='Email or nickname',required)   
+            input(type='password',placeholder='Password',required)
+            input(type='submit',value='Login')
+        span or 
+            a register 
 div#chatContainer
     div#chat
+        - for(message in process)
+            p= message
     div#users
     div#message
-    div#setNickname    
-     
+    div#nickname    
