@@ -7,7 +7,7 @@ module.exports = function(app) {
   app.get('/', function(req, res){
   
     var render = {
-      title: 'Express',
+      title: 'Ragechat',
       logged_in: req.session.logged_in || false,
       username: req.session.user ? req.session.user.username : 'guest'
     };
@@ -24,7 +24,7 @@ module.exports = function(app) {
   
   app.get('/login', function(req, res) {
     res.render('login', {
-      title: 'Ragechat Login'
+      title: 'Login'
     });
   });
   
