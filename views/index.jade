@@ -1,25 +1,17 @@
 include header
 
+script(type='text/javascript', src='/nowjs/now.js')
+
 div#chatContainer
     div#tabs
-        - for(message in process)
-            - if(message == 'title') 
-                div.active
-                 #{message}
-            - else
-                div
-                 #{message}
     div#chat
-        - for(message in process)
-            p= "<" + message + "> " + message
+      p Welcome to Ragechat!
     div#users
-        - for(message in process)
-            p= message
     div#message
         form
             input(type='text',placeholder='Type a message',required)   
             input(type='submit',value='Send')
-    div#nickname    
+    div#nickname
         form
             input(type='text',placeholder='Choose a nickname',required)   
             input(type='submit',value='Set nickname')
