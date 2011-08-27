@@ -41,7 +41,7 @@ app.configure('production', function(){
 
 require('./routes')(app);
 
-require('./now')(app);
+require('./pusher');
 
 app.listen(80);
 

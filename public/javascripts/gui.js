@@ -1,9 +1,3 @@
-function send_message() {
-  now.send_message(active_channel, $('#msg').val());
-  $('#msg').val('');
-  return false;
-}
-
 function joined(channel) {
   add_tab(channel);
   switch_channel(channel);

@@ -2,7 +2,10 @@
 html
   head
     title= title
+    - if (fsid)
+      meta(name='fsid', content='fsid')
     link(rel='stylesheet', href='/stylesheets/bootstrap-1.1.1.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/javascripts/jquery.min.js')
+    script(src='http://js.pusherapp.com/1.10.0-pre/pusher.min.js')
   body!= body

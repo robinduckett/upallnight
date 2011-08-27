@@ -7,9 +7,10 @@ module.exports = function(app) {
   app.get('/', function(req, res){
   
     var render = {
-      title: 'Express',
+      title: 'Ragechat',
       logged_in: req.session.logged_in || false,
-      username: req.session.user ? req.session.user.username : 'guest'
+      username: req.session.user ? req.session.user.username : 'guest',
+      fsid: req.cookie['connect-sid'] || false
     };
     
     res.render('index', render);

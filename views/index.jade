@@ -1,7 +1,5 @@
 include header
 
-script(type='text/javascript', src='/nowjs/now.js')
-
 script(src='/javascripts/ragechat.js')  
 
 div#chatContainer.row
@@ -16,10 +14,3 @@ div#chatContainer.row
     div#nickname
       input(type='text', placeholder='Choose a nickname', required)   
       input.btn.small.primary(type='submit', value='Set nickname')
-
-script
-    $("#msg").keyup(function(event){
-      if(event.keyCode == 13){
-        send_message();
-      }
-    });
