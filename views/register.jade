@@ -9,22 +9,22 @@ form#register(action='/register', method='POST')
       li= error
 
   div.username.clearfix
-    label(for='username') Username
+    label(for='username') New username
     div.input
         input(type='text', id='username', name='username')
         
   div.email.clearfix
-      label(for='email') Email
+      label(for='email') Your email
       div.input
           input(type='text', id='email', name='email')
     
   div.password.clearfix
-    label(for='password') Password
+    label(for='password') Set password
     div.input
         input(type='password', id='password', name='password')
     
   div.password_confirm.clearfix
-    label(for='password_confirm') Confirm Password
+    label(for='password_confirm') Repeat password
     div.input
         input(type='password', id='password_confirm', name='password_confirm')
     
