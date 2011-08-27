@@ -66,7 +66,7 @@ module.exports = function(app) {
       var recaptcha = new Recaptcha(PUBLIC_KEY, PRIVATE_KEY);
       
       res.render('register', {
-        title: 'Ragechat Register',
+        title: 'Register',
         errors: [],
         recaptcha_form: recaptcha.toHTML()
       });
@@ -130,7 +130,7 @@ module.exports = function(app) {
         register_user(req, res, user_obj);
       } else {
         res.render('register', {
-          title: 'Ragechat Register',
+          title: 'Register',
           errors: [],
           recaptcha_form: recaptcha.toHTML()
         });
@@ -168,7 +168,7 @@ function render_register(res, req, errors) {
   var recaptcha = new Recaptcha(PUBLIC_KEY, PRIVATE_KEY);
   
   var render_data = {
-    title: 'Ragechat Register',
+    title: 'Register',
     errors: errors,
     recaptcha_form: recaptcha.toHTML(),
     logged_in: req.session.logged_in || false,

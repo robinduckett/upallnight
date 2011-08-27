@@ -1,0 +1,28 @@
+script(type='text/javascript', src='/nowjs/now.js')
+
+div#topContainer
+    div#logo LOGO
+    div#rooms(style='display: none') Top themed rooms:
+        ul
+          li.first
+            a(href='#') pop room
+          li
+            a(href='#') rock room
+          li
+            a(href='#') hip-hop room
+          li
+            a(href='#') jazz room
+          li.last
+            a(href='#') more ▼
+        a(href='/create') Own a room
+    div#loginBox
+      - if (typeof logged_in == 'undefined' || logged_in == false)
+        form(action='/login', method='post')
+            input(type='text', name='username', placeholder='Email or nickname', required)   
+            input(type='password', name='password', placeholder='Password', required)
+            input(type='submit', value='Login')
+        span or 
+            a(href='/register') register
+      - else
+        div#myUsername #{username}
+        a#logout(href='/logout') logout     
