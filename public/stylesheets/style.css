@@ -29,8 +29,18 @@ label.recaptcha {
     left:0;
 }
 #chats, #users{
-    height:500px;
+    height:300px;
     overflow-y:scroll;
+    background: whiteSmoke;
+    border-top: 1px solid #DDD;
+
+}
+#chatContainer .tabs{
+    margin-bottom:0;
+}
+#users{
+    margin-left:0;
+    padding-left:20px;
 }
 
 /*body {

@@ -4,18 +4,20 @@ script(type='text/javascript', src='/nowjs/now.js')
 
 script(src='/javascripts/ragechat.js')  
 
-div#chatContainer.row
-    ul.tabs
-    div#chats.span10.columns
-      div#main.chat
-        p Welcome to Ragechat!
-    div#users.span6.columns
-    div#message
-      input(type='text', id='msg', placeholder='Type a message', required, )   
-      input.btn.small(type='button', value='Send', onclick='send_message()')
-    div#nickname
-      input(type='text', placeholder='Choose a nickname', required)   
-      input.btn.small.primary(type='submit', value='Set nickname')
+div#chatContainer
+    div.row
+        ul.tabs.span16.columns
+        div#chats.span11.columns
+          div#main.chat
+            p Welcome to Ragechat!
+        div#users.span5.columns
+    div.row
+        div#message
+          input.span7.offset1.columns(type='text', id='msg', placeholder='Type a message', required, )   
+          input.btn.small(type='button', value='Send', onclick='send_message()')
+        div#nickname
+          input.span7.offset1.columns(type='text', placeholder='Choose a nickname', required)   
+          input.btn.small.primary(type='submit', value='Set nickname')
 
 script
     $("#msg").keyup(function(event){
