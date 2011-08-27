@@ -1,6 +1,6 @@
 div#topContainer
     div#logo LOGO
-    div#rooms
+    div#rooms Top themed rooms:
         ul
           li.first
             a(href='#') pop room
@@ -12,12 +12,13 @@ div#topContainer
             a(href='#') jazz room
           li.last
             a(href='#') more ▼
+        a(href='/create') Own a room
     div#loginBox
-        form
+        form.notLoggedIn
             input(type='text',placeholder='Email or nickname',required)   
             input(type='password',placeholder='Password',required)
             input(type='submit',value='Login')
-        span or 
+        span.notLoggedIn or 
             a register 
 div#chatContainer
     div#tabs

@@ -14,12 +14,12 @@ a {
   color: #00B7FF;
 }
 div#logo{
-    width:300px;
+    width:30%;
     height:150px;
     background-color:#66AAAA;
 }
 div#rooms{
-    width:296px;
+    width:30%;
 }
 ol, ul {
     list-style: none;
@@ -28,6 +28,7 @@ ol, ul {
 }
 div#loginBox{
     float:right;
+    width:30%;
 }
 div#loginBox form{
     float:left;
@@ -60,6 +61,7 @@ div#users{
 width:30%;
 }
 div#topContainer{
+    width:100%;
 }
 div#tabs{
    overflow:hidden;
@@ -71,4 +73,7 @@ div#tabs, div#tabs div{
 div#tabs div{
     line-height:20px;
     padding:0 5px;
+}
+.notLoggedIn{
+    display:none;
 }
