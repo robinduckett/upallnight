@@ -31,19 +31,19 @@ div#loginBox form{
 div#loginBox form * {
     width:100%;
 }
-div#chatContainer{
+div.chatContainer{
    float:none;
     margin:0 auto;
     width:90%; 
 }
-div#chat{
+div.chat{
 float:left;
 }
-div#chat, div#users{
+div.chat, div#users{
 height: 500px;
 overflow-y: scroll;
 }
-div#chat, div#message, div#nickname{
+div.chat, div#message, div#nickname{
 width:70%;
 }
 div#message form, div#nickname form{
@@ -69,7 +69,8 @@ div#tabs{
 div#tabs{
     height:21px;
 }
-div#tabs div{
+div#tabs div {
+    float: left;
     line-height:20px;
     padding:0 5px;
     background: #074c68;

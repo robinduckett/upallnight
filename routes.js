@@ -5,11 +5,14 @@ var PRIVATE_KEY = '6LekNscSAAAAACmXgqfx4sDJD6n9cBfHFOjnxWIz';
 
 module.exports = function(app) {
   app.get('/', function(req, res){
-  res.render('index', {
+  
+    var render = {
       title: 'Express',
       logged_in: req.session.logged_in || false,
       username: req.session.user ? req.session.user.username : 'guest'
-    });
+    };
+    
+    res.render('index', render);
   });
   
   app.get('/logout', function(req, res) {

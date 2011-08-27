@@ -40,8 +40,8 @@ app.configure('production', function(){
 
 require('./routes')(app);
 
-app.listen(3000);
-
 require('./now')(app);
+
+app.listen(3000);
 
 console.log("Ragechat server listening on port %d in %s mode", app.address().port, app.settings.env);
