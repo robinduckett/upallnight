@@ -1,8 +1,15 @@
 div#topContainer.row
-    div.span8.column
+    div.span7.column
         a(href="/")
             img(src="/art/logo2.png")
-    div#loginBox.span8.column
+    div.span5.column#vote
+        div.popover.left
+            div.inner
+                h4.title VOTE 
+                div.content Vote for Ragechat on <br /> Node.js Knockout contest: <iframe src="http://nodeknockout.com/iframe/upallnight" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
+                
+
+    div#loginBox.span4.column
       - if (typeof logged_in == 'undefined' || logged_in == false)
         form(action='/login', method='post')
             div.clearfix
@@ -16,6 +23,7 @@ div#topContainer.row
       - else
         h2#myUsername #{username}
         a#logout(href='/logout') logout 
+
 //
  div.row#rooms Top themed rooms:
     ul

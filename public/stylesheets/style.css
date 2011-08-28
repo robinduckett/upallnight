@@ -50,3 +50,15 @@ label.recaptcha {
     width:64px;
     height:64px;
 }
+.popover{
+    display:block;
+    position:static;
+}
+.popover .inner{
+    width:184px;
+    text-align:center;
+}
+#vote iframe{
+    padding-left:36px;
+}
+
