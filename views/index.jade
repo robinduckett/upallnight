@@ -30,11 +30,17 @@ div#chatContainer
                         div.inner
                           h4.title Number of chatting users
                           div.content 
-                            h4#userAmount 300
+                            h4#userAmount 0
           div.span5.columns
             div.popover.left#sharethis
                 div.inner
                     h4.title Share this webstie 
-                    div.content <span  class='st_twitter_hcount' displayText='Tweet'></span><span  class='st_facebook_hcount' displayText='Facebook'></span><span  class='st_reddit_hcount' displayText='Reddit'></span><span  class='st_fblike_hcount' ></span><span  class='st_plusone_hcount' ></span>
+                    div.content
+                      span.st_twitter_hcount(displayText='Tweet')
+                      span.st_facebook_hcount(displayText='Facebook')
+                      span.st_reddit_hcount(displayText='Reddit')
+                      span.st_fblike_hcount
+                      span.st_plusone_hcount
+                      iframe(frameborder="no", scrolling="no", height="50px", width="350px", src="http://hnlike.com/upvote?link=http%3A%2F%2Fupallnight.nko2.nodeknockout.com&title=Ragechat") iframes not supported by your browser
 
 include footer

@@ -5,6 +5,8 @@ var pusher = null;
 
 var connected = false;
 
+var users_list = [];
+
 Pusher.log = function(message) {
   if (window.console && window.console.log) window.console.log(message);
 };
@@ -31,9 +33,35 @@ $(function() {
     subscribe(channel);
     joined(channel);
   });
-  
+    
   pusher.back_channel.bind('user_count', function(count) {
     $('#userAmount').html(count.count);
+  });
+  
+  pusher.back_channel.bind('user_list', function(list_part) {
+    switch (list_part.type) {
+      case 'add':
+        for (var i = 0; i < list_part.list.length; i++) {
+          users_list.push(list_part.list[i]);
+        }
+      break;
+      case 'remove':
+      for (var i = 0; i < list_part.list.length; i++) {
+        var ind = users_list.indexOf(list_part.list[i]);
+        if (ind > -1) {
+          users_list.splice(ind, 1);
+        }
+      }
+      break;
+    }
+    
+    build_user_list();
+  });
+  
+  pusher.back_channel.bind('user_list_full', function(list_full) {
+    users_list = list_full;
+    
+    build_user_list();
   });
 });
 

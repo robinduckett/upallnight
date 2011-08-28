@@ -33,6 +33,7 @@ module.exports = function(app) {
   
   app.post('/login', function(req, res) {
     var username = req.body.username;
+    var username = require('./strip_tags')(username);
     var password = req.body.password;
     
     var crypto = require('crypto');
@@ -86,6 +87,7 @@ module.exports = function(app) {
     }
     
     var username = req.body.username;
+    var username = require('./strip_tags')(username);
     var password = req.body.password;
     var password_confirm = req.body.password_confirm;
     var email = req.body.email;

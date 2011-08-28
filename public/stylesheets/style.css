@@ -94,10 +94,18 @@ label.recaptcha {
 }
 .chat{
     padding:8px;
+    background: #fff;
 }
 #msg, #message .popover .inner, #chatContainer .popover .inner{
     width:100%;
 }
 .chat p p {
   display: inline;
+}
+
+#users ul, #users li {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }

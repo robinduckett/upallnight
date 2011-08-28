@@ -49,3 +49,17 @@ $(function() {
     }
   });
 });
+
+function build_user_list() {
+  $('#users ul').remove();
+  
+  var ul = $('<ul />');
+  ul.addClass('userlist');
+  
+  for (var i = 0; i < users_list.length; i++) {
+    var li = $('<li>' + users_list[i] + '</li>');
+    ul.append(li);
+  }
+  
+  $('#users').append(ul);
+}

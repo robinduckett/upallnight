@@ -10,6 +10,10 @@ var pipe = Pipe.createClient({
   debug: false
 });
 
+Array.prototype.diff = function(a) {
+    return this.filter(function(i) {return !(a.indexOf(i) > -1);});
+};
+
 pipe.connect();
 
 var users = [];
@@ -44,9 +48,14 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
           users[user].online = true;
         }
         
+        var ul = [];
+        
         for (var i = 0; i < users.length; i++) {
           pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+          ul.push(users[i].username);
         }
+        
+        pipe.socket(socket_id).trigger('user_list_full', {list: ul});
       });
       
       pipe.socket(socket_id).trigger('rejoin', users[user].channels);
@@ -64,11 +73,29 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
             u.username = socket_id;
           }
           
+          var old_ul = [];
+          
+          for (var i = 0; i < users.length; i++) {
+            old_ul.push(users[i].username);
+          }
+          
           var user = users.push(u) - 1;
           join_room(users[user], 'main');
           
+          var new_ul = [];
+          
           for (var i = 0; i < users.length; i++) {
             pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+            new_ul.push(users[i].username);
+          }
+          
+          pipe.socket(socket_id).trigger('user_list_full', {list: new_ul});
+          
+          
+          var ul = old_ul.diff(new_ul);
+          
+          for (var i = 0; i < users.length; i++) {
+            pipe.socket(users[i].socket_id).trigger('user_list', {type: 'add', list: ul});
           }
         }
       });
@@ -134,10 +161,15 @@ function quit_user(user) {
     
       var found = -1;
       
+      var old_ul = [];
+      var new_ul = [];
+      
       for (var i = 0; i < users.length; i++) {
         if (users[i].username == user.username) {
           found = i;
         }
+        
+        old_ul.push(users[i].username);
       }
       
       if (found > -1) {
@@ -145,12 +177,18 @@ function quit_user(user) {
         
         for (var i = 0; i < users.length; i++) {
           pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+          new_ul.push(users[i].username);
+        }
+        
+        var ul = old_ul.diff(new_ul);
+        
+        for (var i = 0; i < users.length; i++) {
+          pipe.socket(users[i].socket_id).trigger('user_list', {type: 'remove', list: ul});
         }
       }
     }
   };
 }
-
 
 function join_room(user, room) {
   console.log('USER IS JOINING YES');
