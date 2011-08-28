@@ -69,7 +69,9 @@ function join_room(user, room) {
       var found = false;
       
       for (var i = 0; i < rooms.users.length; i++) {
-        if (rooms.users[i].username == user.username)
+        if (rooms.users[i].username == user.username) {
+          
+        }
       }
     } else {
       create_room(room, user);
