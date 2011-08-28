@@ -124,7 +124,7 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   for (var i = 0; i < users.length; i++) {
     if (users[i].fsid == fsid) {
       console.log('FOUND YOU');
-      found = users[i];
+      found = i;
     }
   }
   
@@ -162,7 +162,7 @@ pipe.sockets.on('event:message', function(socket_id, message) {
           '*':   'title'
         });
         
-        pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
+        pipe.channel(channel).trigger('message', {message: html, nickname: users[found].username});
       }
     }
   }
