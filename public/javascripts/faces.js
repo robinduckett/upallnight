@@ -18,7 +18,7 @@ var replaceFaces = function(element) {
   for (face in faces) {
     offsetTop = -Math.floor(face / 4) * 65;
     offsetRight = -(face % 4) * 65;
-    replaceWith = "<img class='face' style='background-position:" + offsetRight + "px " + offsetTop + "px'>";
+    replaceWith = "<span class='face' style='background-position:" + offsetRight + "px " + offsetTop + "px'></span>";
     toReplace = '[(]' + faces[face] + '[)]';
     chat.html(chat.html().replace(new RegExp(toReplace,"gi"), replaceWith)); 
   }

@@ -45,7 +45,8 @@ label.recaptcha {
     margin-left:0;
     padding-left:20px;
 }
-.face{
+.face {
+    display: inline-block;
     background-image:url('/art/face_grid.png');
     width:64px;
     height:64px;
@@ -86,6 +87,7 @@ label.recaptcha {
   width:10000px;
 }
 .face2 {
+    display: inline-block;
     background-image:url('/art/face_grid2.png');
     width:32.5px;
     height:32.5px;
@@ -96,6 +98,6 @@ label.recaptcha {
 #msg, #message .popover .inner, #chatContainer .popover .inner{
     width:100%;
 }
-#chatContainer .popover{
-    
+.chat p p {
+  display: inline;
 }
