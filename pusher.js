@@ -92,7 +92,7 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
           pipe.socket(socket_id).trigger('user_list_full', {list: new_ul});
           
           
-          var ul = old_ul.diff(new_ul);
+          var ul = new_ul.diff(old_ul);
           
           for (var i = 0; i < users.length; i++) {
             pipe.socket(users[i].socket_id).trigger('user_list', {type: 'add', list: ul});
@@ -132,6 +132,8 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   
   if (found != null) {
     console.log('sending to channel ' + channel);
+    
+    message = require('./strip_tags')(message);
     
     var html = md(message, true, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|'+
       'i|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', {
