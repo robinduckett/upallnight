@@ -5,7 +5,7 @@ var pipe = Pipe.createClient({
   key: '7d1978754fb5fce0a8e9',
   secret: 'ea42eae168f0b04d12d0',
   app_id: 26,
-  debug: true
+  debug: false
 });
 
 pipe.connect();
@@ -13,39 +13,40 @@ pipe.connect();
 var users = [];
 var rooms = {};
 
-pipe.sockets.on('event:connect', function(socket_id, data) {
-  console.log(users);
-  
+pipe.sockets.on('event:rage', function(socket_id, data) {
   if (data.fsid) {
     if (data.fsid.length > 3) {
-      var found = false;
+      var found = -1;
       
       for (var i = 0; i < users.length; i++) {
         if (users[i]) {
           if (users[i].fsid == data.fsid) {
-            found = true;
-            
-            redis.load_session(data.fsid, function(i) {
-              return function(err, session) {
-                users[i].session = session;
-                
-                users[i].socket_id = socket_id;
-                
-                if (!session.user) {
-                  users[i].username = socket_id;
-                } else {
-                  users[i].username = session.user.username;
-                }
-                
-                pipe.socket(socket_id).trigger('event:rejoin', users[i].channels);
-              }
-            }(i));
-            
+            found = i;
           }
         }
       }
       
-      if (found == false) {
+      if (found > -1) {
+        redis.load_session(data.fsid, function(i) {
+          return function(err, session) {
+            if (session) {
+              if (session.user) {
+                users[i].username = session.user.username;
+              }
+            }
+            
+            if (!users[i].username) {
+              users[i].username = users[i].socket_id;
+            }
+            
+            users[i].online = true;
+            
+            pipe.socket(socket_id).trigger('rejoin', users[i].channels);
+          };
+        }(found));
+      }
+      
+      if (found == -1) {
         redis.load_session(data.fsid, function(err, session) {
           if (err) {
             console.log(err);
@@ -58,7 +59,7 @@ pipe.sockets.on('event:connect', function(socket_id, data) {
               username = session.user.username;
             }
             
-            var user = users.push({fsid: data.fsid, username: username, socket_id: socket_id, session: session, channels: []}) - 1;
+            var user = users.push({online: true, fsid: data.fsid, username: username, socket_id: socket_id, session: session, channels: []}) - 1;
             user = users[user];
             join_room(user, 'main');
           }
@@ -68,19 +69,86 @@ pipe.sockets.on('event:connect', function(socket_id, data) {
   }
 });
 
+pipe.sockets.on('event:join', function(socket_id, channel) {
+  var channel = channel.channel;
+  var fsid = channel.fsid;
+  
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].fsid == fsid) {
+      join_room(users[i], channel);
+    }
+  }
+});
+
+pipe.sockets.on('event:message', function(socket_id, message) {
+  console.log(message);
+  
+  var message = message.message;
+  var fsid = message.fsid;
+  var channel = message.channel;
+  
+  var found = null;
+  
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].fsid == fsid) {
+      found = users[i];
+    }
+  }
+  
+  if (found != null) {
+    pipe.channel(channel).trigger('message', {message: message, nickname: found.username});
+  }
+  
+  
+});
+
+pipe.sockets.on('close', function(socket_id) {
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].socket_id == socket_id) {
+      users[i].online = false;
+      setTimeout(quit_user(users[i]), 3*1000);
+    }
+  }
+});
+
+function quit_user(user) {
+  console.log('quit');
+  console.log(user);
+  return function() {
+    if (user.online == false) {
+      for (var j = 0; j < user.channels.length; j++) {
+        pipe.channel(user.channels[j]).trigger('quit', user.username);
+      }
+    }
+  };
+}
+
+
 function join_room(user, room) {
+  console.log('USER IS JOINING YES');
+  
+  pipe.socket(user.socket_id).trigger('join', room);
+  
   if (user.channels.indexOf(room) == -1) {
-    pipe.channel(room).trigger('event:join', user.username);
-    pipe.socket(user.socket_id).trigger('event:join', room);
+    pipe.channel(room).trigger('join', user.username);
+    
     user.channels.push(room);
     
-    if (rooms[room]) {
-      var found = false;
+    if (rooms.hasOwnProperty(room)) {
+      var found = -1;
       
-      for (var i = 0; i < rooms.users.length; i++) {
-        if (rooms.users[i].username == user.username) {
-          
+      for (var i = 0; i < rooms[room].users.length; i++) {
+        if (rooms[room].users[i].username == user.username) {
+          found = i;
         }
+      }
+      
+      if (found > -1) {
+        rooms[room].users[found] = user;
+        console.log('Readding user');
+      } else {
+        rooms[room].users.push(user);
+        console.log('Adding user');
       }
     } else {
       create_room(room, user);
@@ -88,24 +156,8 @@ function join_room(user, room) {
   }
 }
 
-function create_room(room, mod) {
-  
+function create_room(room, user) {
+  console.log('creating room');
+  rooms[room] = {users: [user]};
+  console.log(rooms);
 }
-
-pipe.sockets.on('event:join', function(socket_id, channel) {
-  for (var i = 0; i < users.length; i++) {
-    if (users[i].socket_id == socket_id) {
-      join_room(users[i], channel);
-    }
-  }
-});
-
-pipe.sockets.on('close', function(socket_id) {
-  for (var i = 0; i < users.length; i++) {
-    if (users[i].socket_id == socket_id) {
-      for (var j = 0; j < users[i].channels.length; j++) {
-        pipe.channel(users[i].channels[j]).trigger('event:quit', users[i].username);
-      }
-    }
-  }
-});
