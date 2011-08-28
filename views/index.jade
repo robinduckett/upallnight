@@ -14,8 +14,11 @@ div#chatContainer
     div.row
         div#message
           input.span7.offset1.columns(type='text', id='msg', placeholder='Type a message', required)   
-          input.btn.small(type='button', value='Send', onclick='send_message()')
-    div.row
-        div#nickname
-          input.span7.offset1.columns(type='text', id='nick', placeholder='Choose a nickname', required)   
-          input.btn.small.primary(type='submit', onclick='set_nickname', value='Set nickname')
+          input.span2.columns.btn.small(type='button', value='Send', onclick='send_message()')
+          div.span5.columns
+            div.popover.left#sharethis
+                div.inner
+                    h4.title Share this webstie 
+                    div.content <span  class='st_twitter_hcount' displayText='Tweet'></span><span  class='st_facebook_hcount' displayText='Facebook'></span><span  class='st_reddit_hcount' displayText='Reddit'></span><span  class='st_fblike_hcount' ></span><span  class='st_plusone_hcount' ></span>
+
+include footer

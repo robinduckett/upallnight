@@ -54,11 +54,23 @@ label.recaptcha {
     display:block;
     position:static;
 }
-.popover .inner{
+#topContainer .popover .inner{
     width:184px;
+}
+.popover .inner{
     text-align:center;
 }
 #vote iframe{
     padding-left:36px;
 }
-
+#footer{
+   position:fixed;
+   bottom:0; 
+}
+#sharethis{
+    margin-left:23px;
+}
+#sharethis .content > span{
+    margin-bottom:10px;
+    display:block;
+}
