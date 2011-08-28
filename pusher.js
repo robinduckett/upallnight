@@ -132,13 +132,12 @@ pipe.sockets.on('event:message', function(socket_id, message) {
     console.log('was found!');
     if (typeof users[found] != 'undefined') {
       console.log('not undefined');
-      if (users[found].messages > 5) {
+      if (users[found].messages > 10) {
         console.log(users[found]);
         setTimeout(function() {
           for (var i = 0; i < users.length; i++) {
             if (typeof users[i] != 'undefined') {
               if (users[i].fsid == fsid) {
-                console.log('FOUND YOU SPAM');
                 users[i].messages = 0;
               }
             }
