@@ -128,17 +128,18 @@ pipe.sockets.on('event:message', function(socket_id, message) {
     }
   }
   
-  if (users[found].messages < 5) {
-    users[found].messages++;
-    setTimeout(function() {
-      users[found].messages = 0;
-    }, 10000);
-  } else {
-    
-    console.log('preparing to channel');
-  
-    if (found != null) {
-      console.log('sending to channel ' + channel);
+  if (found != null) {
+    if (users[found].messages > 5) {
+      setTimeout(function() {
+        for (var i = 0; i < users.length; i++) {
+          if (users[i].fsid == fsid) {
+            console.log('FOUND YOU SPAM');
+            users[i].messages = 0;
+          }
+        }
+      }, 10000);
+    } else {
+      users[found].messages++;
       
       if (message.length > 300) {
         message = message.slice(0, 300);
