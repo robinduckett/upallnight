@@ -13,7 +13,7 @@ module.exports = function(app) {
     
     req.session.cookie.expires = false;
     
-    render.fsid = req.cookies['connect.sid'];
+    render.fsid = req.sessionID;
     
     res.render('index', render);
   });
@@ -21,7 +21,6 @@ module.exports = function(app) {
   app.get('/logout', function(req, res) {
     req.session.destroy(function(err) {
       res.header('Location', '/');
-      res.header('Set-Cookie', '');
       res.send(301);
     });
   });
