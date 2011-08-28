@@ -11,7 +11,7 @@ var RedisStore = require('connect-redis')(express);
 
 global.redis_store = new RedisStore({
   host: 'ragechat.com',
-  //host: 'localhost'
+  host: 'localhost'
 });
 
 require('nko')('FDVuw0Qpjelbhb2p');

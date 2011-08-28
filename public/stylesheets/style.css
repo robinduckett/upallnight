@@ -74,3 +74,9 @@ label.recaptcha {
     margin-bottom:10px;
     display:block;
 }
+#faces {
+  border: 1px solid #000;
+  border-radius: 3px;
+  height: 64px;
+  overflow-y: scroll;
+}

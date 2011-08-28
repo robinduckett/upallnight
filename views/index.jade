@@ -12,8 +12,13 @@ div#chatContainer
             p Welcome to Ragechat!
         div#users.span5.columns
     div.row
+      div.span11
+        div#faces
+    div.row
         div#message
-          input.span7.offset1.columns(type='text', id='msg', placeholder='Type a message', required)   
+          div.span7.offset1.columns
+            input.span6(type='text', id='msg', placeholder='Type a message', required)                
+               
           input.span2.columns.btn.small(type='button', value='Send', onclick='send_message()')
           div.span5.columns
             div.popover.left#sharethis

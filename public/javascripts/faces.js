@@ -18,3 +18,13 @@ var replaceFaces = function(element) {
         chat.html(chat.html().replace(new RegExp(toReplace,"gi"), replaceWith)); 
     }
 }
+
+$(function() {
+  for (var i = 0; i < faces.length; i++) {
+    offsetTop = -Math.floor(i / 4) * 64;
+    offsetRight = -(i % 4) * 64;
+    
+    var face = "<div class='face' style='zoom: 50%; float: left; background-position:" + offsetRight + "px " + offsetTop + "px'>";
+    $('#faces').append(face);
+  }
+});
