@@ -129,13 +129,15 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   }
   
   if (found != null) {
-    if (typeof users[found] != undefined) {
+    if (typeof users[found] != 'undefined') {
       if (users[found].messages > 5) {
         setTimeout(function() {
           for (var i = 0; i < users.length; i++) {
-            if (users[i].fsid == fsid) {
-              console.log('FOUND YOU SPAM');
-              users[i].messages = 0;
+            if (typeof users[i] != 'undefined') {
+              if (users[i].fsid == fsid) {
+                console.log('FOUND YOU SPAM');
+                users[i].messages = 0;
+              }
             }
           }
         }, 10000);
