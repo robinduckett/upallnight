@@ -68,9 +68,15 @@ label.recaptcha {
    bottom:0; 
 }
 #sharethis{
-    margin-left:23px;
+    margin-left:33px;
 }
 #sharethis .content > span{
     margin-bottom:10px;
     display:block;
+}
+.chat{
+    padding:8px;
+}
+#msg, #message .popover .inner{
+    width:100%;
 }

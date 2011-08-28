@@ -13,7 +13,13 @@ div#chatContainer
         div#users.span5.columns
     div.row
         div#message
-          input.span7.offset1.columns(type='text', id='msg', placeholder='Type a message', required)   
+          div.span7.offset1.columns
+            input(type='text', id='msg', placeholder='Type a message', required)   
+            div.popover.left
+                div.inner
+                    h4.title Number of chatting users
+                    div.content 
+                        h4#userAmount 300
           input.span2.columns.btn.small(type='button', value='Send', onclick='send_message()')
           div.span5.columns
             div.popover.left#sharethis
