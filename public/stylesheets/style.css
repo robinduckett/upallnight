@@ -74,11 +74,16 @@ label.recaptcha {
     margin-bottom:10px;
     display:block;
 }
+#facesRow .content{
+    overflow-x: scroll;
+    padding:4px 0;
+}
+#facesRow h4{
+    padding-top:4px;
+    padding-bottom:4px;
+}
 #faces {
-  border: 1px solid #000;
-  border-radius: 3px;
-  height: 65px;
-  overflow-y: scroll;
+  width:10000px;
 }
 .face2 {
     background-image:url('/art/face_grid2.png');
@@ -88,6 +93,9 @@ label.recaptcha {
 .chat{
     padding:8px;
 }
-#msg, #message .popover .inner{
+#msg, #message .popover .inner, #chatContainer .popover .inner{
     width:100%;
+}
+#chatContainer .popover{
+    
 }

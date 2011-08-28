@@ -12,18 +12,25 @@ div#chatContainer
             p Welcome to Ragechat!
         div#users.span5.columns
     div.row
-      div.span11
-        div#faces
-    div.row
-        div#message
-          div.span7.offset1.columns
-            input(type='text', id='msg', placeholder='Type a message', required)   
-            div.popover.left
-                div.inner
-                    h4.title Number of chatting users
-                    div.content 
-                        h4#userAmount 300
-          input.span2.columns.btn.small(type='button', value='Send', onclick='send_message()')
+        div.span11.columns
+            div.row
+                div#message
+                  div.span7.offset1.columns
+                    input(type='text', id='msg', placeholder='Type a message', required)   
+                  input.span2.columns.btn.small(type='button', value='Send', onclick='send_message()')
+            div.row#facesRow
+                 div.popover.left
+                     div.inner
+                         h4.title Click a Rage Face to add it the the message 
+                         div.content
+                            div#faces
+            div.row
+                div.span7.offset1.column
+                    div.popover.left
+                        div.inner
+                          h4.title Number of chatting users
+                          div.content 
+                            h4#userAmount 300
           div.span5.columns
             div.popover.left#sharethis
                 div.inner
