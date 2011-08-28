@@ -74,20 +74,17 @@ label.recaptcha {
     margin-bottom:10px;
     display:block;
 }
-
 #faces {
   border: 1px solid #000;
   border-radius: 3px;
   height: 65px;
   overflow-y: scroll;
 }
-
 .face2 {
     background-image:url('/art/face_grid2.png');
     width:32.5px;
     height:32.5px;
 }
-
 .chat{
     padding:8px;
 }
