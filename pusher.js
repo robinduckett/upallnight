@@ -109,7 +109,7 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   if (found != null) {
     console.log('sending to channel ' + channel);
     
-    var html = md(message, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|i|img|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', true);
+    var html = md(message, true);
     
     pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
   }
