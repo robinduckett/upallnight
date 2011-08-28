@@ -8,16 +8,20 @@ module.exports = function(app) {
     var render = {
       title: 'Ragechat',
       logged_in: req.session.logged_in || false,
-      username: req.session.user ? req.session.user.username : 'guest',
-      fsid: req.cookies['connect.sid'] || false
+      username: req.session.user ? req.session.user.username : 'guest'
     };
+    
+    req.session.cookie.expires = false;
+    
+    render.fsid = req.cookies['connect.sid'];
     
     res.render('index', render);
   });
   
   app.get('/logout', function(req, res) {
-    req.session.regenerate(function(err) {
+    req.session.destroy(function(err) {
       res.header('Location', '/');
+      res.header('Set-Cookie', '');
       res.send(301);
     });
   });

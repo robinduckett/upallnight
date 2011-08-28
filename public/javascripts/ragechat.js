@@ -10,31 +10,55 @@ Pusher.log = function(message) {
 $(function() {
   pusher = new Pusher('7d1978754fb5fce0a8e9');
   
-  pusher.connection.bind('connected', function() {
-    pusher.back_channel.trigger('connect', {fsid: $('meta[name=fsid]').attr('content')});
+  pusher.back_channel.bind('connection_established', function() {
+    pusher.back_channel.trigger('rage', {fsid: $('meta[name=fsid]').attr('content')});
   });
   
-  pusher.back_channel.bind('event:rejoin', function(channels) {
+  pusher.back_channel.bind('rejoin', function(channels) {
     for (var i = 0; i < channels.length; i++) {
+      pusher.back_channel.trigger('join', {fsid: $('meta[name=fsid]').attr('content'), channel: channels[i]});
+      log(channels[i], 'You joined ' + channels[i]);
       subscribe(channels[i]);
       joined(channels[i]);
     }
   });
   
-  pusher.back_channel.bind('event:join', function(channel) {
+  pusher.back_channel.bind('join', function(channel) {
+    log(channel, 'You joined ' + channel);
     subscribe(channel);
-    var message = $('<p></p>').html('You joined ' + channel);
     joined(channel);
-    $('#' + channel).prepend(message);
   });
 });
 
 function subscribe(channel) {
   pusher.subscribe(channel);
   
-  pusher.channel(channel).bind('event:join', function(username) {
-    $('#' + channel).prepend(username +' joined ' + channel);
+  pusher.channel(channel).bind('join', function(username) {
+    log(channel, username + ' joined ' + channel);
   });
+  
+  pusher.channel(channel).bind('message', function(message) {
+    var text = message.message;
+    var username = message.nickname;
+    log(channel, '<' + username + '> ' + text);
+  });
+  
+  pusher.channel(channel).bind('quit', function(username) {
+    log(channel, username +' quit ' + channel);
+  });
+}
+
+function log(channel, text) { 
+  var p = $('<p></p>');
+  p.html(text);
+  replaceFaces(p);
+  $('#' + channel).prepend(p);
+}
+
+function send_message() {
+  var msg = $('#msg').val();
+  $('#msg').val('');
+  pusher.back_channel.trigger('message', {fsid: $('meta[name=fsid]').attr('content'), message: msg, channel: active_channel});
 }
 /*
 
