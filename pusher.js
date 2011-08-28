@@ -5,7 +5,10 @@ var pipe = Pipe.createClient({
   key: '7d1978754fb5fce0a8e9',
   secret: 'ea42eae168f0b04d12d0',
   app_id: 26,
-  debug: false
+  debug: false,/*
+  app_id: '31',
+  key: '28e501df7286c5d180b0',
+  secret: '8da8d65e91e665050bb7'*/
 });
 
 pipe.connect();
@@ -29,14 +32,26 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
       if (found > -1) {
         redis.load_session(data.fsid, function(i) {
           return function(err, session) {
-            if (session) {
-              if (session.user) {
-                users[i].username = session.user.username;
-              }
-            }
-            
             if (!users[i].username) {
               users[i].username = users[i].socket_id;
+            }
+            
+            if (session) {
+              if (session.user) {
+                if (users[i].username == users[i].socket_id) {
+                  for (var j = 0; j < users[i].channels.length; j++) {
+                    for (var k = 0; k < users[i].channels[j].users.length; k++) {
+                      if (users[i].channels[j].users[k].socket_id == users[i].socket_id) {
+                        users[i].channels[j].users[k] = users[i];
+                      }
+                    }
+                    
+                    pipe.channel(users[i].channels[j]).trigger('nickname', {old: users[i].socket_id, 'new': users[i].username});
+                  }
+                  
+                  users[i].username = session.user.username;
+                }
+              }
             }
             
             users[i].online = true;
@@ -81,25 +96,24 @@ pipe.sockets.on('event:join', function(socket_id, channel) {
 });
 
 pipe.sockets.on('event:message', function(socket_id, message) {
-  console.log(message);
-  
-  var message = message.message;
   var fsid = message.fsid;
-  var channel = message.channel;
+  var channel = message.chan;
+  var message = message.message;
   
   var found = null;
   
   for (var i = 0; i < users.length; i++) {
     if (users[i].fsid == fsid) {
+      console.log('FOUND YOU');
       found = users[i];
     }
   }
   
+  console.log('preparing to channel');
   if (found != null) {
+    console.log('sending to channel ' + channel);
     pipe.channel(channel).trigger('message', {message: message, nickname: found.username});
   }
-  
-  
 });
 
 pipe.sockets.on('close', function(socket_id) {

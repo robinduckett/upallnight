@@ -3,6 +3,8 @@ var channels = [];
 
 var pusher = null;
 
+var connected = false;
+
 Pusher.log = function(message) {
   if (window.console && window.console.log) window.console.log(message);
 };
@@ -40,7 +42,7 @@ function subscribe(channel) {
   pusher.channel(channel).bind('message', function(message) {
     var text = message.message;
     var username = message.nickname;
-    log(channel, '<' + username + '> ' + text);
+    log(channel, '&lt;' + username + '&gt; ' + text);
   });
   
   pusher.channel(channel).bind('quit', function(username) {
@@ -58,7 +60,9 @@ function log(channel, text) {
 function send_message() {
   var msg = $('#msg').val();
   $('#msg').val('');
-  pusher.back_channel.trigger('message', {fsid: $('meta[name=fsid]').attr('content'), message: msg, channel: active_channel});
+  var trig = {fsid: $('meta[name=fsid]').attr('content'), message: msg, chan: active_channel};
+  console.log(trig);
+  pusher.back_channel.trigger('message', trig);
 }
 /*
 
