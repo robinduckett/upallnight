@@ -38,7 +38,15 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
           if (typeof session.user != "undefined") {
             users[user].username = session.user.username;
           } else {
-            users[user].username = socket_id;
+            var test = require('./random_names')();
+            
+            for (var i = 0; i < users.length; i++) {
+              if (users[i].username == test) {
+                test = require('./random_names')();
+              }
+            }
+            
+            users[user].username = test;
           }
           
           users[user].session = session;
@@ -70,7 +78,15 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
           if (typeof session.user != "undefined") {
             u.username = session.user.username;
           } else {
-            u.username = socket_id;
+            var test = require('./random_names')();
+            
+            for (var i = 0; i < users.length; i++) {
+              if (users[i].username == test) {
+                test = require('./random_names')();
+              }
+            }
+            
+            u.username = test;
           }
           
           var old_ul = [];
