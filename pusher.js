@@ -173,7 +173,7 @@ pipe.sockets.on('close', function(socket_id) {
   for (var i = 0; i < users.length; i++) {
     if (users[i].socket_id == socket_id) {
       users[i].online = false;
-      setTimeout(quit_user(users[i]), 3*1000);
+      setTimeout(quit_user(users[i]), 30*1000);
     }
   }
 });
