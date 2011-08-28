@@ -105,10 +105,16 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   }
   
   console.log('preparing to channel');
+  
   if (found != null) {
     console.log('sending to channel ' + channel);
     
-    var html = md(message, true);
+    var html = md(message, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|'+
+     'i|img|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', {
+      // 'img': 'src|width|height|alt',
+      'a':   'href',
+      '*':   'title'
+    }, true);
     
     pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
   }
@@ -126,17 +132,24 @@ pipe.sockets.on('close', function(socket_id) {
 function quit_user(user) {
   return function() {
     if (user.online == false) {
-      var found = -1;
       for (var j = 0; j < user.channels.length; j++) {
-        found = i;
         pipe.channel(user.channels[j]).trigger('quit', user.username);
       }
-    }
     
-    if (found > -1) {
-      users.splice(found, 1);
+      var found = -1;
+      
       for (var i = 0; i < users.length; i++) {
-        pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+        if (users[i].username == user.username) {
+          found = i;
+        }
+      }
+      
+      if (found > -1) {
+        users.splice(found, 1);
+        
+        for (var i = 0; i < users.length; i++) {
+          pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+        }
       }
     }
   };
