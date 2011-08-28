@@ -1,39 +1,24 @@
-div#topContainer
-    div#logo LOGO
-    div#rooms
-        ul
-          li.first
-            a(href='#') pop room
-          li
-            a(href='#') rock room
-          li
-            a(href='#') hip-hop room
-          li
-            a(href='#') jazz room
-          li.last
-            a(href='#') more ▼
-    div#loginBox
-        form
-            input(type='text',placeholder='Email or nickname',required)   
-            input(type='password',placeholder='Password',required)
-            input(type='submit',value='Login')
-        span or 
-            a register 
+include header
+
+script(src='/javascripts/gui.js')
+script(src='/javascripts/ragechat.js')
+script(src='/javascripts/faces.js')
+
 div#chatContainer
-    div#tabs
-        - for(message in process)
-            div= message
-    div#chat
-        - for(message in process)
-            p= "<" + message + "> " + message
-    div#users
-        - for(message in process)
-            p= message
-    div#message
-        form
-            input(type='text',placeholder='Type a message',required)   
-            input(type='submit',value='Send')
-    div#nickname    
-        form
-            input(type='text',placeholder='Choose a nickname',required)   
-            input(type='submit',value='Set nickname')
+    div.row
+        ul.tabs.span16.columns
+        div#chats.span11.columns
+          div#main.chat
+            p Welcome to Ragechat!
+        div#users.span5.columns
+    div.row
+        div#message
+          input.span7.offset1.columns(type='text', id='msg', placeholder='Type a message', required)   
+          input.span2.columns.btn.small(type='button', value='Send', onclick='send_message()')
+          div.span5.columns
+            div.popover.left#sharethis
+                div.inner
+                    h4.title Share this webstie 
+                    div.content <span  class='st_twitter_hcount' displayText='Tweet'></span><span  class='st_facebook_hcount' displayText='Facebook'></span><span  class='st_reddit_hcount' displayText='Reddit'></span><span  class='st_fblike_hcount' ></span><span  class='st_plusone_hcount' ></span>
+
+include footer
