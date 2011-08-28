@@ -42,6 +42,8 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
           
           users[user].session = session;
           
+          users[user].socket_id = socket_id;
+          
           users[user].online = true;
         }
         
