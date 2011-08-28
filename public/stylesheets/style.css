@@ -68,15 +68,24 @@ label.recaptcha {
    bottom:0; 
 }
 #sharethis{
-    margin-left:23px;
+    margin-left:33px;
 }
 #sharethis .content > span{
     margin-bottom:10px;
     display:block;
 }
+<<<<<<< HEAD
 #faces {
   border: 1px solid #000;
   border-radius: 3px;
   height: 64px;
   overflow-y: scroll;
 }
+=======
+.chat{
+    padding:8px;
+}
+#msg, #message .popover .inner{
+    width:100%;
+}
+>>>>>>> 10d7da066dd1ee293022b1ca2ce137e7f5c6c8cd
