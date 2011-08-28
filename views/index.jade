@@ -1,6 +1,7 @@
 include header
 
-script(src='/javascripts/ragechat.js')  
+script(src='/javascripts/gui.js')
+script(src='/javascripts/ragechat.js')
 
 div#chatContainer
     div.row
@@ -11,9 +12,9 @@ div#chatContainer
         div#users.span5.columns
     div.row
         div#message
-          input.span7.offset1.columns(type='text', id='msg', placeholder='Type a message', required, )   
+          input.span7.offset1.columns(type='text', id='msg', placeholder='Type a message', required)   
           input.btn.small(type='button', value='Send', onclick='send_message()')
     div.row
         div#nickname
-          input.span7.offset1.columns(type='text', placeholder='Choose a nickname', required)   
-          input.btn.small.primary(type='submit', value='Set nickname')
+          input.span7.offset1.columns(type='text', id='nick', placeholder='Choose a nickname', required)   
+          input.btn.small.primary(type='submit', onclick='set_nickname', value='Set nickname')

@@ -4,13 +4,12 @@ var PUBLIC_KEY = '6LekNscSAAAAAHtzYV_VhcxzeDfETK6uAyyhaVyJ';
 var PRIVATE_KEY = '6LekNscSAAAAACmXgqfx4sDJD6n9cBfHFOjnxWIz';
 
 module.exports = function(app) {
-  app.get('/', function(req, res){
-  
+  app.get('/', function(req, res) {
     var render = {
       title: 'Ragechat',
       logged_in: req.session.logged_in || false,
       username: req.session.user ? req.session.user.username : 'guest',
-      fsid: req.cookie['connect-sid'] || false
+      fsid: req.cookies['connect.sid'] || false
     };
     
     res.render('index', render);

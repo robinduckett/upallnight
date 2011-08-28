@@ -3,28 +3,40 @@ var channels = [];
 
 var pusher = null;
 
-Pusher.host = 'ws.darling.pusher.com';
-
 Pusher.log = function(message) {
   if (window.console && window.console.log) window.console.log(message);
 };
 
 $(function() {
   pusher = new Pusher('7d1978754fb5fce0a8e9');
-  pusher.back_channel.trigger('connect', {fsid: $('meta[name=fsid]').attr('content')});
+  
+  pusher.connection.bind('connected', function() {
+    pusher.back_channel.trigger('connect', {fsid: $('meta[name=fsid]').attr('content')});
+  });
+  
+  pusher.back_channel.bind('event:rejoin', function(channels) {
+    for (var i = 0; i < channels.length; i++) {
+      subscribe(channel);
+      joined(channels[i]);
+    }
+  });
+  
+  pusher.back_channel.bind('event:join', function(channel) {
+    subscribe(channel);
+    var message = $('<p></p>').html('You joined ' + channel);
+    joined(channel);
+    $('#' + channel).prepend(message);
+  });
 });
 
-/*
-now.join_channel = function(nickname, channel) {
-  if (now.nickname == nickname) {
-    var message = $('<p></p>').html('You joined ' + channel);
-    join_channel(channel);
-  } else {
-    var message = $('<p></p>').html(nickname + ' joined ' + channel);
-  }
+function subscribe(channel) {
+  pusher.subscribe(channel);
   
-  $('#' + channel).prepend(message);
-};
+  pusher.channel.bind('event:join', function() {
+    
+  });
+}
+/*
 
 now.get_message = function(nickname, channel, text) {
   if (now.nickname == nickname) {
