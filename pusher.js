@@ -128,20 +128,32 @@ pipe.sockets.on('event:message', function(socket_id, message) {
     }
   }
   
-  console.log('preparing to channel');
+  if (users[found].messages < 5) {
+    users[found].messages++;
+    setTimeout(function() {
+      users[found].messages = 0;
+    }, 10000);
+  } else {
+    
+    console.log('preparing to channel');
   
-  if (found != null) {
-    console.log('sending to channel ' + channel);
-    
-    message = require('./strip_tags')(message);
-    
-    var html = md(message, true, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|'+
-      'i|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', {
-      'a':   'href',
-      '*':   'title'
-    });
-    
-    pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
+    if (found != null) {
+      console.log('sending to channel ' + channel);
+      
+      if (message.length > 300) {
+        message = message.slice(0, 300);
+      }
+      
+      message = require('./strip_tags')(message);
+      
+      var html = md(message, true, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|'+
+        'i|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', {
+        'a':   'href',
+        '*':   'title'
+      });
+      
+      pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
+    }
   }
 });
 
