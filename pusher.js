@@ -129,8 +129,11 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   }
   
   if (found != null) {
+    console.log('was found!');
     if (typeof users[found] != 'undefined') {
+      console.log('not undefined');
       if (users[found].messages > 5) {
+        console.log(users[found]);
         setTimeout(function() {
           for (var i = 0; i < users.length; i++) {
             if (typeof users[i] != 'undefined') {
@@ -142,6 +145,9 @@ pipe.sockets.on('event:message', function(socket_id, message) {
           }
         }, 10000);
       } else {
+        console.log('do send');
+        console.log(users[found]);
+        
         users[found].messages++;
         
         if (message.length > 300) {
