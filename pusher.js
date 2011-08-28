@@ -61,7 +61,7 @@ pipe.sockets.on('event:connect', function(socket_id, data) {
 
 function join_room(user, room) {
   if (user.channels.indexOf(room) == -1) {
-    pipe.channel(room).trigger('event:join', user.username || user.socket_id);
+    pipe.channel(room).trigger('event:join', user.username);
     pipe.socket(user.socket_id).trigger('event:join', room);
     user.channels.push(room);
     
@@ -69,7 +69,7 @@ function join_room(user, room) {
       var found = false;
       
       for (var i = 0; i < rooms.users.length; i++) {
-        if (rooms.users[i].username == user.username || user.socket_id)
+        if (rooms.users[i].username == user.username)
       }
     } else {
       create_room(room, user);
@@ -93,7 +93,7 @@ pipe.sockets.on('close', function(socket_id) {
   for (var i = 0; i < users.length; i++) {
     if (users[i].socket_id == socket_id) {
       for (var j = 0; j < users[i].channels.length; j++) {
-        pipe(users[i].channels[i]).trigger('event:quit', users[i].username ? users[i].username : users[i].socket_id);
+        pipe(users[i].channels[i]).trigger('event:quit', users[i].username);
       }
     }
   }
