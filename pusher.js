@@ -4,13 +4,10 @@ var Pipe = require('pusher-pipe'),
 var md = require("node-markdown").Markdown;
 
 var pipe = Pipe.createClient({
-  key: '7d1978754fb5fce0a8e9',
-  secret: 'ea42eae168f0b04d12d0',
-  app_id: 26,
-  debug: false/*,
-  app_id: '31',
-  key: '28e501df7286c5d180b0',
-  secret: '8da8d65e91e665050bb7'*/
+  app_id: 30,
+  key: '1383811ab2998cfe80ea',
+  secret: '1514b53467d510d457a1',
+  debug: false
 });
 
 pipe.connect();
