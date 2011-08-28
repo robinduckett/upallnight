@@ -10,8 +10,8 @@ var replaceFaces = function(element) {
     var toReplace, replaceWith,offsetRight,offsetTop;
     var chat = $(element);
     for(face in faces) {
-        offsetTop = -Math.floor(face / 4) * 64;
-        offsetRight = -(face % 4) * 64;
+        offsetTop = -Math.floor(face / 4) * 65;
+        offsetRight = -(face % 4) * 65;
         replaceWith = "<img class='face' style='background-position:" + offsetRight + "px " + offsetTop + "px'>";
         toReplace = '[(]' + faces[face] + '[)]';
         chat.html(chat.html().replace(new RegExp(toReplace,"gi"), replaceWith)); 
