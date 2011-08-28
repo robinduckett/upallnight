@@ -129,31 +129,33 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   }
   
   if (found != null) {
-    if (users[found].messages > 5) {
-      setTimeout(function() {
-        for (var i = 0; i < users.length; i++) {
-          if (users[i].fsid == fsid) {
-            console.log('FOUND YOU SPAM');
-            users[i].messages = 0;
+    if (typeof users[found] != undefined) {
+      if (users[found].messages > 5) {
+        setTimeout(function() {
+          for (var i = 0; i < users.length; i++) {
+            if (users[i].fsid == fsid) {
+              console.log('FOUND YOU SPAM');
+              users[i].messages = 0;
+            }
           }
+        }, 10000);
+      } else {
+        users[found].messages++;
+        
+        if (message.length > 300) {
+          message = message.slice(0, 300);
         }
-      }, 10000);
-    } else {
-      users[found].messages++;
-      
-      if (message.length > 300) {
-        message = message.slice(0, 300);
+        
+        message = require('./strip_tags')(message);
+        
+        var html = md(message, true, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|'+
+          'i|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', {
+          'a':   'href',
+          '*':   'title'
+        });
+        
+        pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
       }
-      
-      message = require('./strip_tags')(message);
-      
-      var html = md(message, true, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|'+
-        'i|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', {
-        'a':   'href',
-        '*':   'title'
-      });
-      
-      pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
     }
   }
 });
