@@ -4,9 +4,9 @@ var Pipe = require('pusher-pipe'),
 var md = require("node-markdown").Markdown;
 
 var pipe = Pipe.createClient({
-  app_id: 30,
-  key: '1383811ab2998cfe80ea',
-  secret: '1514b53467d510d457a1',
+  app_id: 26,
+  key: '7d1978754fb5fce0a8e9',
+  secret: 'ea42eae168f0b04d12d0',
   debug: false
 });
 
@@ -106,7 +106,11 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   if (found != null) {
     console.log('sending to channel ' + channel);
     
-    var html = md(message, true);
+    var html = md(message, true, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|'+
+      'i|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', {
+      'a':   'href',
+      '*':   'title'
+    });
     
     pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
   }
