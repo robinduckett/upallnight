@@ -65,7 +65,7 @@ pipe.sockets.on('event:rage', function(socket_id, data) {
           console.log(err);
           console.log(err.stack);
         } else {
-          var u = {online: true, fsid: data.fsid, socket_id: socket_id, session: session, channels: []};
+          var u = {online: true, messages: 0, fsid: data.fsid, socket_id: socket_id, session: session, channels: []};
           
           if (typeof session.user != "undefined") {
             u.username = session.user.username;
