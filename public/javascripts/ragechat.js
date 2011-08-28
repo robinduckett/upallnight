@@ -10,8 +10,8 @@ Pusher.log = function(message) {
 };
 
 $(function() {
-  //pusher = new Pusher('7d1978754fb5fce0a8e9');
-  pusher = new Pusher('28e501df7286c5d180b0');
+  pusher = new Pusher('7d1978754fb5fce0a8e9');
+  //pusher = new Pusher('28e501df7286c5d180b0');
   
   pusher.back_channel.bind('connection_established', function() {
     pusher.back_channel.trigger('rage', {fsid: $('meta[name=fsid]').attr('content')});

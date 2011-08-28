@@ -5,10 +5,10 @@ var pipe = Pipe.createClient({
   key: '7d1978754fb5fce0a8e9',
   secret: 'ea42eae168f0b04d12d0',
   app_id: 26,
-  debug: false,
+  debug: false,/*
   app_id: '31',
   key: '28e501df7286c5d180b0',
-  secret: '8da8d65e91e665050bb7'
+  secret: '8da8d65e91e665050bb7'*/
 });
 
 pipe.connect();
