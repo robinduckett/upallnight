@@ -35,7 +35,7 @@ $(function() {
     face2.click(function() {
       $('#msg').val($('#msg').val() + '('+faces[$(this).attr('data-face')]+')');
     });
-    
     $('#faces').append(face2);
   }
+  $('#faces').css('width',faces.length * 32.5 + 'px');
 });
