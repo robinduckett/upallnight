@@ -12,7 +12,8 @@ module.exports = function(app) {
     };
     
     req.session.cookie.expires = false;
-    render.fsid = req.cookies['connect.sid'];
+    
+    render.fsid = req.sessionID;
     
     res.render('index', render);
   });

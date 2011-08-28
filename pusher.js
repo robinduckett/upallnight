@@ -17,71 +17,62 @@ var rooms = {};
 
 pipe.sockets.on('event:rage', function(socket_id, data) {
   if (data.fsid) {
-    if (data.fsid.length > 3) {
-      var found = -1;
-      
-      for (var i = 0; i < users.length; i++) {
-        if (users[i]) {
-          if (users[i].fsid == data.fsid) {
-            found = i;
-          }
-        }
-      }
-      
-      if (found > -1) {
-        redis.load_session(data.fsid, function(i) {
-          return function(err, session) {
-            if (!users[i].username) {
-              users[i].username = users[i].socket_id;
-            }
-            
-            if (session) {
-              if (session.user) {
-                if (users[i].username == users[i].socket_id) {
-                  for (var j = 0; j < users[i].channels.length; j++) {
-                    for (var k = 0; k < users[i].channels[j].users.length; k++) {
-                      if (users[i].channels[j].users[k].socket_id == users[i].socket_id) {
-                        users[i].channels[j].users[k] = users[i];
-                      }
-                    }
-                    
-                    pipe.channel(users[i].channels[j]).trigger('nickname', {old: users[i].socket_id, 'new': users[i].username});
-                  }
-                  
-                  users[i].username = session.user.username;
-                }
-              }
-            }
-            
-            users[i].online = true;
-            
-            pipe.socket(socket_id).trigger('rejoin', users[i].channels);
-          };
-        }(found));
-      }
-      
-      if (found == -1) {
-        redis.load_session(data.fsid, function(err, session) {
-          if (err) {
-            console.log(err);
-          } else {
-            var username = '';
-            
-            if (!session.user) {
-              username = socket_id;
-            } else {
-              username = session.user.username;
-            }
-            
-            var user = users.push({online: true, fsid: data.fsid, username: username, socket_id: socket_id, session: session, channels: []}) - 1;
-            user = users[user];
-            join_room(user, 'main');
-          }
-        });
+    var user = -1;
+    
+    for (var i = 0; i < users.length; i++) {
+      if (data.fsid == users[i].fsid) {
+        user = i;
       }
     }
-  } else {
     
+    if (user > -1) { // user exists on server
+      redis.load_session(users[user].fsid, function(err, session) {
+        if (err) {
+          console.log(err);
+          console.log(err.stack);
+        } else {
+          if (typeof session.user != "undefined") {
+            users[user].username = session.user.username;
+          } else {
+            users[user].username = socket_id;
+          }
+          
+          users[user].session = session;
+          
+          users[user].socket_id = socket_id;
+          
+          users[user].online = true;
+        }
+        
+        for (var i = 0; i < users.length; i++) {
+          pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+        }
+      });
+      
+      pipe.socket(socket_id).trigger('rejoin', users[user].channels);
+    } else { // user does not exist yet
+      redis.load_session(data.fsid, function(err, session) {
+        if (err) {
+          console.log(err);
+          console.log(err.stack);
+        } else {
+          var u = {online: true, fsid: data.fsid, socket_id: socket_id, session: session, channels: []};
+          
+          if (typeof session.user != "undefined") {
+            u.username = session.user.username;
+          } else {
+            u.username = socket_id;
+          }
+          
+          var user = users.push(u) - 1;
+          join_room(users[user], 'main');
+          
+          for (var i = 0; i < users.length; i++) {
+            pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+          }
+        }
+      });
+    }
   }
 });
 
@@ -111,10 +102,11 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   }
   
   console.log('preparing to channel');
+  
   if (found != null) {
     console.log('sending to channel ' + channel);
     
-    var html = md(message, true);
+    var html = md(message, 'a|b|blockquote|code|del|dd|dl|dt|em|h1|h2|h3|i|img|li|ol|p|pre|sup|sub|strong|strike|ul|br|hr', true);
     
     pipe.channel(channel).trigger('message', {message: html, nickname: found.username});
   }
@@ -130,12 +122,26 @@ pipe.sockets.on('close', function(socket_id) {
 });
 
 function quit_user(user) {
-  console.log('quit');
-  console.log(user);
   return function() {
     if (user.online == false) {
       for (var j = 0; j < user.channels.length; j++) {
         pipe.channel(user.channels[j]).trigger('quit', user.username);
+      }
+    
+      var found = -1;
+      
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].username == user.username) {
+          found = i;
+        }
+      }
+      
+      if (found > -1) {
+        users.splice(found, 1);
+        
+        for (var i = 0; i < users.length; i++) {
+          pipe.socket(users[i].socket_id).trigger('user_count', {count: users.length});
+        }
       }
     }
   };
