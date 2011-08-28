@@ -8,7 +8,17 @@ var faces = [
   'hmmm', 'itstime', 'soon', 'almost4',
   'wonder', 'girlyawn', 'girlhappy', 'girlpissed',
   'girllol', 'girlneutral', 'girlcross', 'girlwonder',
-  'girlohyeah', 'girlsmile', 'girlsoon', 'girlwhat'
+  'girlohyeah', 'girlsmile', 'girlsoon', 'girlwhat',
+  'girlmeh', 'girlewbte', 'girlchortle', 'girlconcentrate',
+  'sadtroll', 'trolol', 'butreally', 'wtfsnarf',
+  'trolldad', 'trollface', 'serious', 'chew',
+  'wtfomg', 'fffffffuuuuuuuu', 'rage', 'yuno',
+  'grrr', 'omgwtffff', 'fuckyea', 'fapfapfap',
+  'ohgodwhat', 'crying', 'whatwhat', 'okay',
+  'foreveralone', 'milk', 'whatcomputer', 'ohwhatthe',
+  'ohgodno', 'mjwhat', 'cerealleft', 'cerealright',
+  'cerealwhat', 'cerealcoffee', 'cerealwait', 'cerealchew',
+  'cerealspit', 'cerealdad', 'dadrip', 'itspikachu'
 ];
 
 var replaceFaces = function(element) {

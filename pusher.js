@@ -131,18 +131,20 @@ pipe.sockets.on('event:message', function(socket_id, message) {
   if (found != null) {
     console.log('was found!');
     if (typeof users[found] != 'undefined') {
+      
+      setTimeout(function() {
+        for (var i = 0; i < users.length; i++) {
+          if (typeof users[i] != 'undefined') {
+            if (users[i].fsid == fsid) {
+              if (users[i].messages > 0) users[i].messages--;
+            }
+          }
+        }
+      }, 2000);
+      
       console.log('not undefined');
       if (users[found].messages > 10) {
         console.log(users[found]);
-        setTimeout(function() {
-          for (var i = 0; i < users.length; i++) {
-            if (typeof users[i] != 'undefined') {
-              if (users[i].fsid == fsid) {
-                users[i].messages = 0;
-              }
-            }
-          }
-        }, 10000);
       } else {
         console.log('do send');
         console.log(users[found]);
