@@ -16,7 +16,7 @@ $(function() {
   
   pusher.back_channel.bind('event:rejoin', function(channels) {
     for (var i = 0; i < channels.length; i++) {
-      subscribe(channel);
+      subscribe(channels[i]);
       joined(channels[i]);
     }
   });
@@ -32,8 +32,8 @@ $(function() {
 function subscribe(channel) {
   pusher.subscribe(channel);
   
-  pusher.channel.bind('event:join', function() {
-    
+  pusher.channel(channel).bind('event:join', function(username) {
+    $('#' + channel).prepend(username +' joined ' + channel);
   });
 }
 /*

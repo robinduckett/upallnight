@@ -4,7 +4,8 @@ var Pipe = require('pusher-pipe'),
 var pipe = Pipe.createClient({
   key: '7d1978754fb5fce0a8e9',
   secret: 'ea42eae168f0b04d12d0',
-  app_id: 26
+  app_id: 26,
+  debug: true
 });
 
 pipe.connect();
@@ -49,7 +50,15 @@ pipe.sockets.on('event:connect', function(socket_id, data) {
           if (err) {
             console.log(err);
           } else {
-            var user = users.push({fsid: data.fsid, username: session.user.username, socket_id: socket_id, session: session, channels: []}) - 1;
+            var username = '';
+            
+            if (!session.user) {
+              username = socket_id;
+            } else {
+              username = session.user.username;
+            }
+            
+            var user = users.push({fsid: data.fsid, username: username, socket_id: socket_id, session: session, channels: []}) - 1;
             user = users[user];
             join_room(user, 'main');
           }
@@ -95,7 +104,7 @@ pipe.sockets.on('close', function(socket_id) {
   for (var i = 0; i < users.length; i++) {
     if (users[i].socket_id == socket_id) {
       for (var j = 0; j < users[i].channels.length; j++) {
-        pipe(users[i].channels[i]).trigger('event:quit', users[i].username);
+        pipe.channel(users[i].channels[j]).trigger('event:quit', users[i].username);
       }
     }
   }
