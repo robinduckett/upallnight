@@ -65,7 +65,10 @@ $(function() {
     switch (list_part.type) {
       case 'add':
         for (var i = 0; i < list_part.list.length; i++) {
-          users_list.push(list_part.list[i]);
+          var ind = users_list.indexOf(list_part.list[i]);
+          if (ind == -1) {
+            users_list.push(list_part.list[i]);
+          }
         }
       break;
       case 'remove':
