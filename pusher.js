@@ -5,8 +5,8 @@ var md = require("node-markdown").Markdown;
 
 var pipe = Pipe.createClient({
   app_id: 26,
-  key: '7d1978754fb5fce0a8e9',
-  secret: 'ea42eae168f0b04d12d0',
+  key: '[]',
+  secret: '[]',
   debug: false
 });
 
